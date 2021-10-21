@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../assets/logo.png">
+    <link rel="stylesheet" href="https://use.typekit.net/fdb7qui.css">
+    <title>Test</title>
+</head>
+
+<body>
+    <header>
+        <h1 class="hidden">Langolation</h1>
+        <nav class="navi">
+            <a href="../index.html"><img src="../assets/logo.png" alt="logo" width="81" height="99"></a>
+        </nav>
+    </header>
+    <main class="content">
+        <article class="article article__testpage up ">
+            <div class="one">
+                <h2 class="article__title position__title-two image-penink"><span class="bold">Vaardigheid 1</span>:
+                    Schrijfsnelheid</h2>
+                <p class="article__point sticky"><span class="point-counter">0</span> punten</p>
+            </div>
+            <p class="article__info  textmiddel testpage__info linehigh">Type de tekst <em>zo snel</em> mogelijk over en
+                klik op klaar. <span class="countdown white">60</span></p>
+            <p class="article__info textmiddel testpage__info red hidden">ER ZIT EEN FOUT IN JE TEKST</p>
+            <p class="article__info textmiddel testpage__info red win"></p>
+            <div class="article__testfield image-penik">
+                <textarea name="text" class="textfield" id="text" cols="40" rows="6" maxlength="151"></textarea>
+                <img class="textfield-text" src="../assets/textprofessor.svg" alt="text">
+            </div>
+
+            <div class="buttontest__page">
+                <div class="button button-klik">
+                    <p class="button__text">Klaar</p>
+                </div>
+                <img src="../assets/linebutton.png" alt="line" class="buttontest-image">
+            </div>
+        </article>
+
+        <article class="article article__testpage morespace image-writer">
+            <h2 class="article__title position__title-two"><span class="bold">Vaardigheid 2</span>: Zoek de
+                schrijffouten</h2>
+            <p class="article__info textmiddel testpage__info">Zoek de 10 spelfouten, je hebt <em><span
+                        class="click-count">10</span> kansen.</em></p>
+            <p class="article__info testpage__info testfaults"><span class="normal">Wij van Langolation weten wat een
+                    goed leven is. Je</span><span class="fault"> word </span><span class="normal">elke dag wakker met
+                    een
+                    lach en frisse, nieuwe</span> <span class="fault">ideëen </span><span class="normal">voor boeken die
+                    je wilt schrijven. Hier moet niet
+                    alles snel snel of</span><span class="fault"> onmiddelijk </span><span class="normal">gebeuren. Het
+                    is</span><span class="fault"> makellijker </span><span class="normal">hier en dat hebben we
+                    allemaal te danken aan de</span><span class="fault"> proffesor.</span> <br>
+                <span class="normal">Hij </span><span class="fault">leefd</span><span class="normal"> volgens zijn
+                    motto: een dag niet </span><span class="fault">schreiven</span><span class="normal"> is als een dag
+                    zonder water, het
+                    is niet gezond. Wij proberen zijn geweldig voorbeeld te volgen, maar het is niet
+                    altijd even </span><span class="fault">gemakellijk.</span><span class="normal"> Dit komt doordat
+                    schrijversblok een vaak </span><span class="fault">voorkoment</span><span class="normal"> probleem
+                    is hier. <br>
+                    Dit is echter het enige probleem, over het algemeen hebben we heel veel
+                    plezier. Zo spelen we af en toe spelletjes met elkaar zoals wedstrijd snel schrijven of
+                    voor de echte waaghalzen dictees. </span><span class="fault">kortom</span><span class="normal">
+                    aarzel niet en schrijf je in!</span></p>
+            <img src="../assets/linebutton.png" alt=" lijn" width="72" height="133" class="buttontest-image">
+        </article>
+        <article class="article article__testpage image-dictee">
+            <h2 class="article__title position__title-two"><span class="bold ">Vaardigheid 3</span>: Dictee</h2>
+            <p class="article__info textmiddel testpage__info biggertext">Luister naar de woorden van <em>de professor</em> en schrijf ze over.</p>
+            <form action="test.html" method="get" class="form__general">
+                <div class="article__dictee input-dictee">
+                    <label>
+                        <input type="text" name="word1" class="dictee word0" required size="15">
+                    </label>
+                    <label>
+                        <input type="text" name="word2" class="dictee word1" required size="15">
+                    </label>
+                    <label>
+                        <input type="text" name="word3" class="dictee word2" required size="15">
+                    </label>
+                </div>
+                <div class="article__dictee">
+                    <audio controls class="dictee audio-dictee">
+                        <source src="../assets/wood1.m4a" type="audio/mpeg">
+                    </audio>
+                    <audio controls class="dictee">
+                        <source src="../assets/woord2.m4a" type="audio/mpeg">
+                    </audio>
+                    <audio controls class="dictee">
+                        <source src="../assets/woord3.m4a" type="audio/mpeg">
+                    </audio>
+                </div>
+                <div class="form-submit-button">
+                    <input type="submit" value="Uitslag" class="button button__deco">
+                </div>
+            </form>
+        </article>
+        <article class="article article__testpage pink">
+            <p class="bar-image navi"></p>
+            <h2 class="article__title position__title-two red hidden up">Resultaat</h2>
+            <div class="result">
+            </div>
+        </article>
+    </main>
+
+    <script src="../js/script.js"></script>
+</body>
+
+</html>
