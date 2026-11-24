@@ -1,6 +1,7 @@
 {
     let id;
-    let noNewTimer=0;
+    let writingComplete = false;
+    let dictationPoints = 0;
     const rightText = `de professor is geweldig. we hebben alles aan hem te danken. hij heeft ons gered van de wereld waar alles fout gaat en boeken minder belangrijk worden.`;
     const wordsSpellingtest = [`cappuccino`, `ge-e-maild`, `zee-egel`];
     const moodProfessor = [`sad`, `happy`];
@@ -26,74 +27,58 @@
         setNumber(amountPoints, `point-counter`);
     }
 
-    const reduceNumber =()=>{
-        let currentNumber = textContentGet(`countdown`);
-        if(currentNumber>0){
-            currentNumber--;
-            setNumber(currentNumber, `countdown`);
-            id++;
-        } else{
+    const reduceNumber = () => {
+        const remaining = Number(textContentGet(`countdown`)) - 1;
+        setNumber(remaining, `countdown`);
+        if (remaining === 0) {
             startAnimation(`countdown`);
             clearInterval(id);
         }
     }
 
     const handleClickButtonText = () => {
-        let number = textContentGet(`countdown`);
-        if ((document.querySelector(`.textfield`).value).toLowerCase() === rightText && number > 0) {
-            startAnimation(`countdown`);
-            document.querySelector(`.red`).classList.add(`hidden`);
-            document.querySelector(`.win`).textContent = `Je bent binnen de tijd, Ga naar de volgende vaardigheidstest.`;
-            pointAdd(parseInt(number))
-        } else if ((document.querySelector(`.textfield`).value).toLowerCase() === rightText) {
-            document.querySelector(`.red`).classList.add(`hidden`);
-            document.querySelector(`.win`).textContent = `Je hebt juist overgenomen maar buiten de tijd, Ga naar de volgende vaardigheidstest.`;
-        } else {
-            document.querySelector(`.red`).classList.remove(`hidden`);
+        if (writingComplete) return;
+
+        const field = document.querySelector(`.textfield`);
+        field.focus();
+        const error = document.querySelector(`.red`);
+        if (field.value.toLowerCase() !== rightText) {
+            error.classList.remove(`hidden`);
+            return;
         }
+
+        writingComplete = true;
+        clearInterval(id);
+        startAnimation(`countdown`);
+        error.classList.add(`hidden`);
+        const remaining = Number(textContentGet(`countdown`));
+        document.querySelector(`.win`).textContent = remaining > 0
+            ? `Je bent binnen de tijd, Ga naar de volgende vaardigheidstest.`
+            : `Je hebt juist overgenomen maar buiten de tijd, Ga naar de volgende vaardigheidstest.`;
+        pointAdd(remaining);
     }
 
-    const showResult = (number, point) =>{
-        let $result = document.querySelector(`.result`)
-        $result.innerHTML =`<p class="testpage__info result__text red">Je hebt ${point} punten, je bent ${resultText[number]}</p>     
-                <img src="../assets/professor${moodProfessor[number]}.png" alt="professor" width="200" height="225" class="testpage__info">  `
+    const showResult = (number, point) => {
+        const heading = document.querySelector(`.result-heading`);
+        heading.classList.remove(`hidden`);
+        document.querySelector(`.result`).innerHTML =
+            `<p class="testpage__info result__text red">Je hebt ${point} punten, je bent ${resultText[number]}</p>
+             <img src="../assets/professor${moodProfessor[number]}.png" alt="professor" width="200" height="225" class="testpage__info">`;
+        heading.scrollIntoView();
     }
 
-    const handleSubmitFormGeneral = (e)=>{
-        e.preventDefault();
-        let $submit = e.currentTarget;
-        if(noNewTimer>0){
-            for(let i = 0; i<3; i++){
-               let inputUser=  $submit.querySelector(`.word${i}`).value;
+    const handleSubmitFormGeneral = (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        const points = wordsSpellingtest.reduce((total, word, index) => {
+            const answer = form.querySelector(`.word${index}`).value.trim().toLowerCase();
+            return total + (answer === word ? 10 : 0);
+        }, 0);
+        pointAdd(points - dictationPoints);
+        dictationPoints = points;
 
-               if(inputUser.trim().toLowerCase()=== wordsSpellingtest[i]){
-                    pointAdd(10);
-               }
-            }
-        let amountPoints = textContentGet(`point-counter`);
-        if(amountPoints>=70){
-            showResult(1, amountPoints);
-        }else{
-            showResult(0, amountPoints);
-        }
-        }
-    }
-
-    const handleFocusTextarea=()=>{
-        noNewTimer++;
-        if(noNewTimer===1){
-        id = setInterval(reduceNumber, 1000);
-
-        document.querySelector(`.button-klik`).addEventListener(`click`, handleClickButtonText);
-
-        let normals = document.querySelectorAll(`.normal`);
-        normals.forEach($node => $node.addEventListener(`click`, handleClickNormal));
-
-        let faults = document.querySelectorAll(`.fault`);
-        faults.forEach($node => $node.addEventListener(`click`, handleClickFault));
-        
-        document.querySelector(`.form__general`).addEventListener(`submit`, handleSubmitFormGeneral)
-        }
+        const total = Number(textContentGet(`point-counter`));
+        showResult(total >= 70 ? 1 : 0, total);
     }
 
     const handleClickNormal= ()=>{
@@ -155,15 +140,15 @@
     }
 
     const init =()=>{
-        //test
-        let $textfield = document.querySelector(`.textfield`);
-        if($textfield){
-        document.querySelector(`.textfield`).addEventListener(`focus`, handleFocusTextarea);
-        }
-
-        let $formbutton = document.querySelector(`.form__general`);
-        if($formbutton){
-            $formbutton.addEventListener(`submit`, handleSubmitFormGeneral);
+        const field = document.querySelector(`.textfield`);
+        if (field) {
+            field.addEventListener(`focus`, () => {
+                id = setInterval(reduceNumber, 1000);
+            }, { once: true });
+            document.querySelector(`.button-klik`).addEventListener(`click`, handleClickButtonText);
+            document.querySelectorAll(`.normal`).forEach(node => node.addEventListener(`click`, handleClickNormal));
+            document.querySelectorAll(`.fault`).forEach(node => node.addEventListener(`click`, handleClickFault));
+            document.querySelector(`.form__general`).addEventListener(`submit`, handleSubmitFormGeneral);
         }
 
         //schrijver
