@@ -13,6 +13,12 @@ body{
     background-image: url(../assets/papertexture.png);
 }
 
+.scale-desktop body {
+    width: 1680px;
+    height: calc(100vh / var(--desktop-scale));
+    zoom: var(--desktop-scale);
+}
+
 .navi{
     background-image: url(../assets/headermenu.png);
     background-position: 50% top, left 20%, center;
