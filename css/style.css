@@ -13,7 +13,7 @@ body{
     background-image: url(../assets/papertexture.png);
 }
 
-.scale-desktop body {
+.scale-desktop .desktop-layout {
     width: 1680px;
     height: calc(100vh / var(--desktop-scale));
     zoom: var(--desktop-scale);

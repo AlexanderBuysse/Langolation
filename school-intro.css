@@ -1,0 +1,52 @@
+.school-intro {
+    box-sizing: border-box;
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: min(440px, calc(100% - 32px));
+    max-height: calc(100% - 32px);
+    overflow: auto;
+    padding: 24px;
+    border: 1px solid #ddd2bf;
+    border-radius: 16px;
+    background: #fffbf2;
+    color: #28221d;
+    text-align: left;
+    font: 16px/1.5 system-ui, sans-serif;
+}
+
+.school-intro::backdrop {
+    background: rgb(26 20 17 / 72%);
+}
+
+.school-intro h2 {
+    margin: 0 0 12px;
+    color: inherit;
+    font: 700 24px/1.2 system-ui, sans-serif;
+}
+
+.school-intro p {
+    margin: 0 0 20px;
+    color: inherit;
+    font: inherit;
+}
+
+.school-intro form {
+    margin: 0;
+}
+
+.school-intro button {
+    border: 0;
+    border-radius: 8px;
+    padding: 10px 16px;
+    background: #683c2d;
+    color: #fff;
+    font: inherit;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.school-intro button:focus-visible {
+    outline: 2px solid #683c2d;
+    outline-offset: 3px;
+}
